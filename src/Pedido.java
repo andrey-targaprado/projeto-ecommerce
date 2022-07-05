@@ -3,19 +3,12 @@ import java.util.Map;
 
 public class Pedido {
 
-    private Cliente cliente;
+    public Cliente cliente;
     private Map<Produto, Integer> produtos = new HashMap<>();
-    private OpcoesPagamento pagamento;
+    private Pagamento pagamento;
 
-    public Pedido(Cliente cliente){
+    public Pedido(Cliente cliente, Pagamento pagamento){
         this.cliente = cliente;
-    }
-
-    public OpcoesPagamento getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(OpcoesPagamento pagamento) {
         this.pagamento = pagamento;
     }
 
@@ -24,9 +17,27 @@ public class Pedido {
 
     }
 
-    public void listarProdutos(){
+    private void listarProdutos(){
         for (Map.Entry<Produto, Integer> item : produtos.entrySet()) {
             System.out.println(item.getKey().getNome() + " " + item.getValue());
+        }
+    }
+
+    private double totalPedido() {
+        double soma = 0.0;
+        for(Map.Entry<Produto, Integer> item : produtos.entrySet()) {
+            soma += item.getKey().getPreco() * item.getValue();
+        }
+        return soma;
+    }
+
+    public void finalizarPedido() {
+        listarProdutos();
+        System.out.println("A opção de pagamento foi " + pagamento);
+        if(pagamento.getPagamento() == OpcoesPagamento.CARTAO_PARCELADO) {
+            System.out.println("Total: " + totalPedido() + ", em " + pagamento.getParcelas() + " X de " + totalPedido()/pagamento.getParcelas());
+        } else {
+            System.out.println("Total: " + totalPedido());
         }
     }
 }
