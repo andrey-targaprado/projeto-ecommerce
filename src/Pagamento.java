@@ -22,5 +22,11 @@ public  class Pagamento {
         } else {
             this.parcelas = 1;
         }
-    }   
+    }
+
+    public OpcoesPagamento getOpcao() {
+        return opcao;
+    }
+    
+    
 }

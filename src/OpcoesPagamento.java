@@ -5,6 +5,4 @@ public enum OpcoesPagamento {
     CARTA_A_VISTA ,
     PAYPAL;
 
-
-
 }
